@@ -2,7 +2,7 @@ import time
 import mss
 import pyautogui
 import pytesseract
-from PIL import Image
+from PIL import Image, ImageFilter
 from loguru import logger
 import re
 
@@ -14,6 +14,7 @@ class XiaoYuan:
         self.left_identify = left_identify
         self.right_identify = right_identify 
         self.tesseract_path = tesseract_path
+        self.duration = 0.0 # 鼠标移动的速度
 
     # 初始化OCR
     def init_tesseract(self):
@@ -48,23 +49,26 @@ class XiaoYuan:
     # 在画板上画大于号
     def draw_image_greater(self):
         pyautogui.moveTo(self.start_x, self.start_y)
-        pyautogui.dragRel(100, -50, duration=0.1)  # 向右上拖动
-        pyautogui.dragRel(-70, -70, duration=0.1)  # 向左上拖动
-
+        # 鼠标按下一笔画完
+        pyautogui.mouseDown()
+        pyautogui.moveRel(50, -30, duration=self.duration)  # 向左下拖动sqrt(50 * 50 + 30 * 30)像素
+        pyautogui.moveRel(-30, -30, duration=self.duration)  # 向右下拖动sqrt(30 * 30 * 2)像素
+        pyautogui.mouseUp()
+        
     # 在画板上画小于号
     def draw_image_less(self):
         pyautogui.moveTo(self.start_x, self.start_y)
-        pyautogui.dragRel(-100, 50, duration=0.1)  # 向左下拖动
-        pyautogui.dragRel(70, 70, duration=0.1)    # 向右下拖动
-
+        # 鼠标按下一笔画完
+        pyautogui.mouseDown()
+        pyautogui.moveRel(-50, 30, duration=self.duration)  # 向左下拖动sqrt(50 * 50 + 30 * 30)像素
+        pyautogui.moveRel(30, 30, duration=self.duration)  # 向右下拖动sqrt(30 * 30 * 2)像素
+        pyautogui.mouseUp()
+        
 if __name__ == '__main__':
-    # 提供有效的初始参数，需要根据自己设备更改
-    xiaoyuan = XiaoYuan(
-        start_xy=(500, 500),
-        left_identify={'left': 100, 'top': 200, 'width': 100, 'height': 50},
-        right_identify={'left': 300, 'top': 200, 'width': 100, 'height': 50},
-        tesseract_path='C:/Program Files/Tesseract-OCR/tesseract.exe'
-    )
+    xiaoyuan = XiaoYuan(start_xy=(350, 800),
+                        left_identify=(180, 330, 270, 400),
+                        right_identify=(400, 340, 470, 390),
+                        tesseract_path=r'D:\ocr\tesseract.exe')
 
     xiaoyuan.init_tesseract()
 
@@ -91,8 +95,12 @@ if __name__ == '__main__':
 
         end_time = time.perf_counter()
         execution_time = end_time - start_time
-        logger.info(f'第{step+1}次消耗时间为: {execution_time:.2f}秒')
+        logger.info(f'左边的数为: {left_number}-----右边的数为: {right_number}')
+        logger.info(f'第{step+1}次消耗时间为: {execution_time}')
 
         # 等待题目出现
-        time.sleep(0.3)
+        time.sleep(0.45)
         step += 1
+        # 防止出现鼠标不受控制
+        if step > 15:
+            break
