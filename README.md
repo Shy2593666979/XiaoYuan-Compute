@@ -2,6 +2,9 @@
 
 以下教程对初步学习计算机的同学或未接触过计算机的同学可能有些困难，这两天会出一个视频教程🤗🤗🤗
 
+## 效果展示
+[BibiLili-小猿算术](https://www.bilibili.com/video/BV1fW2VYoE1z/?spm_id_from=333.999.0.0&vd_source=6acab3d8919eaab8755c68390cc9fa86)
+
 ## 安装 OCR
 [Tesseract OCR 下载链接](https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-v5.3.0.20221214.exe)
 
