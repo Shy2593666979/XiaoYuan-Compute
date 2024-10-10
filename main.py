@@ -34,10 +34,15 @@ class XiaoYuan:
             print(f"图片保存到: {output_path}")
 
 
-    def get_image_number(self, image_path: str):
-        # 打开图像文件
-        img = Image.open(image_path)
-
+    def get_image_number(self, image_path: str, convert: bool=False):
+        if convert:
+            # 启动灰度图像功能
+            img = Image.open(image_path).convert('L')
+            img = img.point(lambda p: p > 128 and 255)
+        else:
+            # 打开图像文件
+            img = Image.open(image_path)
+            
         # 使用Tesseract OCR识别图像中的文本
         text = pytesseract.image_to_string(img, config='--psm 6 digits')
         number = int(text)
