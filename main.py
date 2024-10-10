@@ -3,6 +3,7 @@ import mss
 import pyautogui
 import pytesseract
 from PIL import Image
+from loguru import logger
 
 class XiaoYuan:
 
@@ -65,10 +66,11 @@ if __name__ == '__main__':
 
     xiaoyuan.init_tesseract()
 
-    # 这里面需要利用mouse文件来检测电脑屏幕中题目出现的位置
-    step = 1
-    
+    # 起始位置
+    step = 0
+
     while True:
+        start_time = time.perf_counter()
         left_image = f'left_{step}.png'
         left_image = xiaoyuan.image_prefix.format(left_image)
         xiaoyuan.capture_screenshot(left_image, region=xiaoyuan.left_identify)
@@ -84,6 +86,10 @@ if __name__ == '__main__':
             xiaoyuan.draw_image_greater()
         else:
             xiaoyuan.draw_image_less()
+
+        end_time = time.perf_counter()
+        execution_time = end_time - start_time
+        logger.info(f'第{step+1}消耗时间为: {execution_time}')
 
         # 等待题目出现
         time.sleep(0.3)
