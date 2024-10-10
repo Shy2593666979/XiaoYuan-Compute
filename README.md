@@ -2,6 +2,9 @@
 
 以下教程对初步学习计算机的同学或未接触过计算机的同学可能有些困难，这两天会出一个视频教程🤗🤗🤗
 
+GUZxy8Uq7EQ
+[![视频标题](https://img.youtube.com/vi/GUZxy8Uq7EQ/0.jpg)](https://www.youtube.com/watch?v=GUZxy8Uq7EQ)
+
 ## 安装 OCR
 [Tesseract OCR 下载链接](https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-v5.3.0.20221214.exe)
 
