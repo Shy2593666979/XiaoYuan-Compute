@@ -3,3 +3,4 @@ Pillow==10.4.0
 PyAutoGUI==0.9.54
 pynput==1.7.7
 pytesseract==0.3.13
+loguru==0.7.2
