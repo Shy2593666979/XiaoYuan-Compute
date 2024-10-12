@@ -16,7 +16,7 @@
 - 安装Python依赖
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## 做提前准备，找到对应的几个坐标值
